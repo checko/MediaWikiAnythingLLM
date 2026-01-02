@@ -25,7 +25,6 @@ services:
       - DISABLE_TELEMETRY=true
     volumes:
       - ./storage:/app/server/storage
-      - ./documents:/app/server/storage/documents/custom-documents
     restart: unless-stopped
     cap_add:
       - SYS_ADMIN
