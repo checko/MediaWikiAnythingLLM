@@ -54,20 +54,22 @@ echo "✓ Directories created"
 
 # Fix ownership for container (runs as UID 1000)
 # This is required because bind mounts need correct permissions
+# mkdir creates directories as current user, so we must always chown
 CONTAINER_UID=1000
-CURRENT_OWNER=$(stat -c '%u' storage 2>/dev/null || echo "unknown")
-if [ "$CURRENT_OWNER" != "$CONTAINER_UID" ]; then
-    echo "Setting storage ownership for container (UID $CONTAINER_UID)..."
-    if [ "$(id -u)" = "0" ]; then
-        # Running as root
-        chown -R $CONTAINER_UID:$CONTAINER_UID storage/
-    elif command -v sudo &> /dev/null; then
-        sudo chown -R $CONTAINER_UID:$CONTAINER_UID storage/
-    else
-        echo "Warning: Cannot set ownership. You may need to run:"
-        echo "  sudo chown -R $CONTAINER_UID:$CONTAINER_UID storage/"
-    fi
+echo "Setting storage ownership for container (UID $CONTAINER_UID)..."
+if [ "$(id -u)" = "$CONTAINER_UID" ]; then
+    # Already running as container UID, no chown needed
+    echo "✓ Already running as UID $CONTAINER_UID"
+elif [ "$(id -u)" = "0" ]; then
+    # Running as root
+    chown -R $CONTAINER_UID:$CONTAINER_UID storage/
     echo "✓ Storage ownership set"
+elif command -v sudo &> /dev/null; then
+    sudo chown -R $CONTAINER_UID:$CONTAINER_UID storage/
+    echo "✓ Storage ownership set"
+else
+    echo "Warning: Cannot set ownership. You may need to run:"
+    echo "  sudo chown -R $CONTAINER_UID:$CONTAINER_UID storage/"
 fi
 
 # Build and start containers
