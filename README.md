@@ -4,10 +4,10 @@ A containerized AnythingLLM setup with Ollama LLM integration and MediaWiki cont
 
 ## Features
 
-- 🤖 **AnythingLLM** - Chat with your documents using any LLM
-- 🦙 **Ollama Integration** - Use local LLM models
-- 📚 **MediaWiki Import** - Automatically scrape and import wiki content
-- 🐳 **Docker-based** - Easy deployment and management
+-  **AnythingLLM** - Chat with your documents using any LLM
+-  **Ollama Integration** - Use local LLM models
+-  **MediaWiki Import** - Automatically scrape and import wiki content
+-  **Docker-based** - Easy deployment and management
 
 ## Quick Start
 
