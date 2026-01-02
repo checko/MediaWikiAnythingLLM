@@ -34,7 +34,7 @@ else
 fi
 
 # Remove specific container if still exists
-docker rm -f royaltek-anythingllm 2>/dev/null || true
+docker rm -f anythingllm 2>/dev/null || true
 
 echo "Removing Docker images..."
 docker rmi mintplexlabs/anythingllm:latest 2>/dev/null || true

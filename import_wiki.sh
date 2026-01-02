@@ -53,12 +53,18 @@ echo "========================================"
 echo " Step 1: Scraping MediaWiki"
 echo "========================================"
 echo ""
-echo "Wiki URL: ${MEDIAWIKI_URL:-wiki.royaltek.com}"
+if [ -z "$MEDIAWIKI_URL" ]; then
+    echo "Error: MEDIAWIKI_URL is not set in .env"
+    echo "Please set MEDIAWIKI_URL to your wiki server URL."
+    exit 1
+fi
+
+echo "Wiki URL: $MEDIAWIKI_URL"
 echo "Output: $EXPORT_DIR"
 echo ""
 
 python3 scripts/scrape_mediawiki.py \
-    --url "${MEDIAWIKI_URL:-wiki.royaltek.com}" \
+    --url "$MEDIAWIKI_URL" \
     --path "${MEDIAWIKI_PATH:-/}" \
     --output "$EXPORT_DIR" \
     ${MEDIAWIKI_USERNAME:+--username "$MEDIAWIKI_USERNAME"} \

@@ -162,8 +162,8 @@ def main():
     )
     parser.add_argument(
         '--url', '-u',
-        default=os.getenv('MEDIAWIKI_URL', 'wiki.royaltek.com'),
-        help='MediaWiki URL (default: wiki.royaltek.com)'
+        default=os.getenv('MEDIAWIKI_URL'),
+        help='MediaWiki URL (e.g., wiki.example.com)'
     )
     parser.add_argument(
         '--path', '-p',
