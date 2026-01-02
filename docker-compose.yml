@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  anythingllm:
+    image: mintplexlabs/anythingllm:latest
+    container_name: royaltek-anythingllm
+    ports:
+      - "3001:3001"
+    environment:
+      - STORAGE_DIR=/app/server/storage
+      # Ollama Configuration
+      - LLM_PROVIDER=ollama
+      - OLLAMA_BASE_PATH=http://192.168.145.70:11434
+      - OLLAMA_MODEL_PREF=gpt-oss:120b
+      # Embedding Configuration (using Ollama)
+      - EMBEDDING_ENGINE=ollama
+      - EMBEDDING_BASE_PATH=http://192.168.145.70:11434
+      - EMBEDDING_MODEL_PREF=nomic-embed-text
+      # Vector Database Configuration
+      - VECTOR_DB=lancedb
+      # Server Configuration
+      - SERVER_PORT=3001
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key-change-this}
+      # Optional: Disable telemetry
+      - DISABLE_TELEMETRY=true
+    volumes:
+      - ./storage:/app/server/storage
+      - ./documents:/app/server/storage/documents/custom-documents
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  anythingllm_storage:

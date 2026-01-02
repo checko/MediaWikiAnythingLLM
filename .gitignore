@@ -1,0 +1,30 @@
+# AnythingLLM RoyalTek - Git Ignore
+
+# Storage and data (created at runtime)
+storage/
+documents/
+
+# Python virtual environment
+.venv/
+scripts/venv/
+scripts/__pycache__/
+*.pyc
+
+# Wiki export (generated content)
+scripts/wiki_export/
+
+# Environment file (contains secrets)
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
